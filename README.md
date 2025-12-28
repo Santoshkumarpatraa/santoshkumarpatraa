@@ -24,11 +24,3 @@ I enjoy working close to system internals—clean architecture, async processing
 * Building **reliable, scalable backend systems**
 * Clean architecture and maintainable code
 * Automation, performance, and system reliability
-
----
-
-### 🌐 Connect with Me
-
-* LinkedIn: [https://www.linkedin.com/in/santosh-kumar-patra/](https://www.linkedin.com/in/santosh-kumar-patra/)
-
-⭐ Always learning. Always improving.
