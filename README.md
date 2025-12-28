@@ -10,12 +10,12 @@ I enjoy working close to system internals—clean architecture, async processing
 
 ### 🛠️ Tech Stack
 
-**Backend:** Node.js (v22), Sails.js (MVC), REST APIs, WebSockets
-**Databases:** PostgreSQL, MongoDB, Redis, Elasticsearch
-**Cloud & DevOps:** AWS (EKS), Docker, PM2, Google Cloud Storage
-**Integrations:** Stripe, Plaid, Avalara, TaxJar, AfterShip, Firebase
-**AI & Analytics:** OpenAI SDK, Anthropic SDK, Amplitude
-**Testing & Utilities:** Mocha, Chai, Sinon, Supertest, ESLint, NYC, JWT, bcrypt, Joi, cron jobs, queues
+**Backend:** Node.js (v22), Sails.js (MVC), REST APIs, WebSockets  
+**Databases:** PostgreSQL, MongoDB, Redis, Elasticsearch  
+**Cloud & DevOps:** AWS (EKS), Docker, PM2, Google Cloud Storage  
+**Integrations:** Stripe, Plaid, Avalara, TaxJar, AfterShip, Firebase  
+**AI & Analytics:** OpenAI SDK, Anthropic SDK, Amplitude  
+**Testing & Utilities:** Mocha, Chai, Sinon, Supertest, ESLint, NYC, JWT, bcrypt, Joi, cron jobs, queues  
 
 ---
 
