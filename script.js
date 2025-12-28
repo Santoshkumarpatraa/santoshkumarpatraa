@@ -128,44 +128,239 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close dropdown on window resize (mobile)
-    window.addEventListener('resize', function() {
+    // Debounce function for performance
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+
+    // Close dropdown on window resize (mobile) - debounced for performance
+    const handleResize = debounce(() => {
         if (window.innerWidth > 768) {
-            navDropdown.classList.remove('active');
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            navDropdown?.classList.remove('active');
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
         }
-    });
+    }, 250);
+    window.addEventListener('resize', handleResize);
 
-    // Make contact items clickable
+    // Make contact items clickable - optimized with single handler
     const contactItems = document.querySelectorAll('.contact-item[data-href]');
+    const handleContactClick = function(e) {
+        // Prevent default only for touch events
+        if (e.type === 'touchend') {
+            e.preventDefault();
+        }
+        
+        const href = this.getAttribute('data-href');
+        const target = this.getAttribute('data-target');
+        
+        if (href) {
+            if (target === '_blank') {
+                window.open(href, '_blank', 'noopener,noreferrer');
+            } else {
+                window.location.href = href;
+            }
+        }
+    };
+
     contactItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const href = this.getAttribute('data-href');
-            const target = this.getAttribute('data-target');
-            
-            if (href) {
-                if (target === '_blank') {
-                    window.open(href, '_blank', 'noopener,noreferrer');
+        item.addEventListener('click', handleContactClick);
+        item.addEventListener('touchend', handleContactClick);
+    });
+
+    // Smooth Scroll Animations on Scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all sections and header
+    const sections = document.querySelectorAll('.section, .header');
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Image Zoom Modal Functionality
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.modal-close');
+    const prevButton = document.querySelector('.modal-nav-prev');
+    const nextButton = document.querySelector('.modal-nav-next');
+    
+    if (!modal || !modalImg) {
+        console.warn('Modal elements not found');
+    } else {
+        // Get all achievement images
+        const achievementImages = Array.from(document.querySelectorAll('.achievement-image img'));
+        let currentImageIndex = -1;
+
+        // Update navigation arrows visibility
+        const updateNavButtons = () => {
+            if (achievementImages.length <= 1) {
+                // Hide arrows if only one image or no images
+                prevButton?.classList.add('hidden');
+                nextButton?.classList.add('hidden');
+                return;
+            }
+
+            // Show/hide prev button
+            if (prevButton) {
+                if (currentImageIndex <= 0) {
+                    prevButton.classList.add('hidden');
                 } else {
-                    window.location.href = href;
+                    prevButton.classList.remove('hidden');
                 }
+            }
+
+            // Show/hide next button
+            if (nextButton) {
+                if (currentImageIndex >= achievementImages.length - 1) {
+                    nextButton.classList.add('hidden');
+                } else {
+                    nextButton.classList.remove('hidden');
+                }
+            }
+        };
+
+        // Helper function to close modal
+        const closeModalFn = () => {
+            modal.classList.remove('active');
+            modalImg.classList.remove('zoomed');
+            document.body.style.overflow = '';
+            modal.setAttribute('aria-hidden', 'true');
+            currentImageIndex = -1;
+            // Return focus to the element that opened the modal
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.closest('.achievement-image')) {
+                activeElement.focus();
+            }
+        };
+
+        // Helper function to open modal
+        const openModalFn = (imgSrc, imgAlt, triggerElement) => {
+            if (!imgSrc || imgSrc.trim() === '') {
+                console.warn('Cannot open modal: invalid image source');
+                return;
+            }
+            
+            // Find the index of the clicked image
+            currentImageIndex = achievementImages.findIndex(img => img.src === imgSrc || img === triggerElement);
+            if (currentImageIndex === -1) {
+                currentImageIndex = achievementImages.findIndex(img => img.src === imgSrc);
+            }
+            
+            modalImg.src = imgSrc;
+            modalImg.alt = imgAlt || 'Zoomed Achievement';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            modal.setAttribute('aria-hidden', 'false');
+            updateNavButtons(); // Update arrow visibility
+            // Focus close button for accessibility
+            setTimeout(() => closeModal?.focus(), 100);
+        };
+
+        // Navigate to previous image
+        const showPreviousImage = () => {
+            if (currentImageIndex <= 0 || achievementImages.length === 0) return;
+            currentImageIndex--;
+            const prevImg = achievementImages[currentImageIndex];
+            modalImg.src = prevImg.src;
+            modalImg.alt = prevImg.alt || 'Zoomed Achievement';
+            modalImg.classList.remove('zoomed'); // Reset zoom when changing images
+            updateNavButtons(); // Update arrow visibility
+        };
+
+        // Navigate to next image
+        const showNextImage = () => {
+            if (currentImageIndex >= achievementImages.length - 1 || achievementImages.length === 0) return;
+            currentImageIndex++;
+            const nextImg = achievementImages[currentImageIndex];
+            modalImg.src = nextImg.src;
+            modalImg.alt = nextImg.alt || 'Zoomed Achievement';
+            modalImg.classList.remove('zoomed'); // Reset zoom when changing images
+            updateNavButtons(); // Update arrow visibility
+        };
+
+        // Use event delegation for achievement images (better performance)
+        const achievementsBanner = document.querySelector('.achievements-banner');
+        if (achievementsBanner) {
+            achievementsBanner.addEventListener('click', function(e) {
+                const img = e.target.closest('.achievement-image img');
+                if (img) {
+                    e.preventDefault();
+                    openModalFn(img.src, img.alt, img);
+                }
+            });
+        }
+
+        // Close modal handlers
+        if (closeModal) {
+            closeModal.addEventListener('click', closeModalFn);
+        }
+
+        // Navigation button handlers
+        if (prevButton) {
+            prevButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showPreviousImage();
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showNextImage();
+            });
+        }
+
+        // Close modal when clicking outside the image (on background)
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModalFn();
             }
         });
 
-        // Support touch events for mobile
-        item.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('data-href');
-            const target = this.getAttribute('data-target');
-            
-            if (href) {
-                if (target === '_blank') {
-                    window.open(href, '_blank', 'noopener,noreferrer');
-                } else {
-                    window.location.href = href;
-                }
-            }
+        // Toggle zoom on image double-click (better UX than single click)
+        modalImg.addEventListener('dblclick', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('zoomed');
         });
-    });
+
+        // Keyboard navigation handler
+        const handleKeyboard = (e) => {
+            if (!modal.classList.contains('active')) return;
+
+            switch(e.key) {
+                case 'Escape':
+                    closeModalFn();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    showPreviousImage();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    showNextImage();
+                    break;
+            }
+        };
+        document.addEventListener('keydown', handleKeyboard);
+    }
 });
+
