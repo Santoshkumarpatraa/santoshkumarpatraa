@@ -14,8 +14,8 @@ I enjoy working close to system internals—clean architecture, async processing
 **Databases:** PostgreSQL, MongoDB, Redis, Elasticsearch  
 **Cloud & DevOps:** AWS (EKS), Docker, PM2, Google Cloud Storage  
 **Integrations:** Stripe, Plaid, Avalara, TaxJar, AfterShip, Firebase  
-**AI & Analytics:** OpenAI SDK, Anthropic SDK, Amplitude  
-**Testing & Utilities:** Mocha, Chai, Sinon, Supertest, ESLint, NYC, JWT, bcrypt, Joi, cron jobs, queues  
+**AI & Analytics:** OpenAI SDK, Anthropic SDK, Amplitude, Events 
+**Testing & Utilities:** Mocha, Chai, ESLint, JWT, bcrypt, Joi, cron jobs, queues  
 
 ---
 
