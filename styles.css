@@ -674,6 +674,64 @@ body {
     transition: opacity 0.3s ease;
 }
 
+/* PDF Viewer Modal */
+.pdf-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(5px);
+    will-change: opacity;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pdf-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.pdf-viewer-container {
+    width: 90%;
+    height: 90vh;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.pdf-modal.active .pdf-viewer-container {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#pdfViewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    background: white;
+}
+
+@media (max-width: 768px) {
+    .pdf-viewer-container {
+        width: 95%;
+        height: 85vh;
+    }
+}
+
 .image-modal.active {
     display: flex;
     align-items: center;
@@ -795,22 +853,22 @@ body {
         height: 36px;
         font-size: 32px;
     }
-    
+
     .modal-content {
         max-width: 95%;
         max-height: 85vh;
     }
-    
+
     .modal-nav {
         width: 44px;
         height: 44px;
         font-size: 28px;
     }
-    
+
     .modal-nav-prev {
         left: 10px;
     }
-    
+
     .modal-nav-next {
         right: 10px;
     }
@@ -820,7 +878,8 @@ body {
 .achievement-image {
     cursor: pointer;
     transition: transform 0.2s ease;
-    touch-action: manipulation; /* Optimize touch interactions */
+    touch-action: manipulation;
+    /* Optimize touch interactions */
 }
 
 .achievement-image:hover {
@@ -828,8 +887,10 @@ body {
 }
 
 .achievement-image img {
-    user-select: none; /* Prevent text selection on images */
-    -webkit-user-drag: none; /* Prevent dragging on mobile */
+    user-select: none;
+    /* Prevent text selection on images */
+    -webkit-user-drag: none;
+    /* Prevent dragging on mobile */
 }
 
 /* Resume Section */
@@ -1330,4 +1391,3 @@ html {
     opacity: 1;
     transform: translateY(0);
 }
-
