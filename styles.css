@@ -1,10 +1,13 @@
-/* Reset and Base Styles */
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* CSS Custom Properties (Variables) */
 :root {
     --primary-color: #2563eb;
     --primary-dark: #1e40af;
@@ -38,7 +41,9 @@ body {
     padding: 2rem 1rem;
 }
 
-/* Navigation Styles */
+/* ============================================
+   NAVIGATION
+   ============================================ */
 .navbar {
     position: fixed;
     top: 0;
@@ -225,7 +230,9 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Header Styles */
+/* ============================================
+   HEADER
+   ============================================ */
 .header {
     padding: 3rem 0;
     margin-bottom: 3rem;
@@ -291,7 +298,9 @@ body {
     margin-top: 0;
 }
 
-/* Main Content */
+/* ============================================
+   MAIN CONTENT LAYOUT
+   ============================================ */
 .main-content {
     display: flex;
     flex-direction: column;
@@ -320,7 +329,9 @@ body {
     border-bottom: 2px solid var(--border-color);
 }
 
-/* About Section */
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
 .about-content {
     display: flex;
     flex-direction: column;
@@ -333,7 +344,9 @@ body {
     color: var(--text-secondary);
 }
 
-/* Tech Section */
+/* ============================================
+   TECH STACK SECTION
+   ============================================ */
 .tech-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -395,7 +408,9 @@ body {
     font-weight: bold;
 }
 
-/* Philosophy Section */
+/* ============================================
+   PHILOSOPHY SECTION
+   ============================================ */
 .philosophy-text {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -403,7 +418,9 @@ body {
     font-style: italic;
 }
 
-/* Projects Section */
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -529,7 +546,9 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Achievements Section */
+/* ============================================
+   ACHIEVEMENTS SECTION
+   ============================================ */
 .achievements-banner {
     display: flex;
     gap: 1.5rem;
@@ -657,7 +676,9 @@ body {
     flex-shrink: 0;
 }
 
-/* Image Zoom Modal */
+/* ============================================
+   IMAGE MODAL
+   ============================================ */
 .image-modal {
     display: none;
     position: fixed;
@@ -674,7 +695,9 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* PDF Viewer Modal */
+/* ============================================
+   PDF VIEWER MODAL
+   ============================================ */
 .pdf-modal {
     display: none;
     position: fixed;
@@ -893,7 +916,9 @@ body {
     /* Prevent dragging on mobile */
 }
 
-/* Resume Section */
+/* ============================================
+   RESUME SECTION
+   ============================================ */
 .resume-content {
     text-align: center;
     max-width: 600px;
@@ -953,7 +978,9 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Contact Section */
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
 .contact-info {
     display: flex;
     flex-direction: column;
@@ -1038,7 +1065,9 @@ body {
     max-width: 400px;
 }
 
-/* Footer */
+/* ============================================
+   FOOTER
+   ============================================ */
 .footer {
     text-align: center;
     padding: 2rem 0;
@@ -1047,7 +1076,11 @@ body {
     font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile Devices */
 @media (max-width: 768px) {
     body {
         padding-top: 80px;
@@ -1306,6 +1339,10 @@ body {
         max-width: 100%;
     }
 }
+
+/* ============================================
+   UTILITIES & GLOBAL STYLES
+   ============================================ */
 
 /* Smooth Scroll */
 html {
