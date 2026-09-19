@@ -1,4 +1,4 @@
-/* Santosh Kumar Patra — portfolio
+/* Santosh Kumar Patra - portfolio
    Palette and easing adapted from the otsuka-air.jp reference. */
 
 :root {
@@ -1080,15 +1080,21 @@ body.is-locked {
 }
 
 .dots a {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: .6rem;
+    width: 6px;
     text-decoration: none;
     color: var(--ink-faint);
 }
 
+/* Taken out of flow: an in-flow label would still occupy width while hidden,
+   and the differing label lengths would stagger the dots. */
 .dots em {
+    position: absolute;
+    right: 1.1rem;
+    white-space: nowrap;
     font-family: var(--mono);
     font-style: normal;
     font-size: .62rem;
@@ -1102,6 +1108,7 @@ body.is-locked {
 .dots a span {
     width: 6px;
     height: 6px;
+    flex: 0 0 auto;
     border-radius: 50%;
     background: var(--line-strong);
     transition: background-color .4s var(--ease), transform .4s var(--ease);

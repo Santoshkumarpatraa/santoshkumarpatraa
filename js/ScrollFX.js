@@ -2,7 +2,7 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const easeOut = p => 1 - Math.pow(1 - p, 3);
 
 /**
- * Positions are measured once per resize so each frame is pure arithmetic —
+ * Positions are measured once per resize so each frame is pure arithmetic -
  * no layout reads in the loop. Effects are driven by progress rather than fired
  * once, so they also run in reverse when scrolling back up.
  */
@@ -40,7 +40,7 @@ export class ScrollFX {
         this.measure();
     }
 
-    /** @param {number} [scrollOffset] the translation actually applied — under
+    /** @param {number} [scrollOffset] the translation actually applied - under
      *  damping this lags window.scrollY, and the wrong one skews every measurement. */
     measure(scrollOffset) {
         this.vh = window.innerHeight;
@@ -96,9 +96,7 @@ export class ScrollFX {
                 const from = it.top - vh * 0.95;
                 const to = it.top - vh * 0.45;
                 const p = easeOut(this.band(scrollY, from, to));
-                const value = Math.round(it.to * p);
-                // Sign from the current value, not the target, or zero renders "-0".
-                el.textContent = value < 0 ? `−${Math.abs(value)}` : `${value}`;
+                el.textContent = String(Math.round(it.to * p));
             }
 
             else if (type === 'pin') {
@@ -187,7 +185,7 @@ export class ScrollFX {
     settle() {
         for (const { el, type, to } of this.items) {
             if (type === 'count') {
-                el.textContent = to < 0 ? `−${Math.abs(to)}` : `${to}`;
+                el.textContent = String(to);
             } else if (type !== 'rail' && type !== 'pin') {
                 el.style.opacity = 1;
                 el.style.transform = 'none';

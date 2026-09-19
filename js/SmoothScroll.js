@@ -3,7 +3,7 @@
  * native scrollbar, keyboard scrolling and find-in-page still work; only the
  * content is translated to a lerped position.
  *
- * The nav and dialogs must stay outside that container — a transformed ancestor
+ * The nav and dialogs must stay outside that container - a transformed ancestor
  * breaks position: fixed.
  */
 export class SmoothScroll {

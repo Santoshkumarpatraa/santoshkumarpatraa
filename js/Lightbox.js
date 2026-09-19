@@ -44,7 +44,7 @@ export class Lightbox extends Modal {
         const item = this.items[this.index];
         this.img.src = item.src;
         this.img.alt = item.alt;
-        this.caption.textContent = `${item.label} — ${this.index + 1} of ${this.items.length}`;
+        this.caption.textContent = `${item.label} (${this.index + 1} of ${this.items.length})`;
         this.prevBtn.disabled = this.index === 0;
         this.nextBtn.disabled = this.index === this.items.length - 1;
     }
